@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Church — The Life of David</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --ink: #111111;
+    --ink-2: #2a2a2a;
+    --muted: #6b6b6b;
+    --faint: #9a9a9a;
+    --line: #e8e8e8;
+    --line-2: #f1f1f1;
+    --gold: #D3BC8D;        /* Saints Old Gold */
+    --gold-deep: #b39966;
+    --gold-soft: #f5efe1;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+  }
+  .serif { font-family: 'Source Serif Pro', Georgia, serif; }
+
+  /* ===== Header ===== */
+  header.site {
+    text-align: center;
+    padding: 3rem 1.25rem 2rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: var(--muted);
+    margin: 0 0 1rem;
+    font-weight: 500;
+  }
+  h1.title {
+    font-family: 'Source Serif Pro', Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin: 0 0 .5rem;
+    color: var(--ink);
+    letter-spacing: -.5px;
+    line-height: 1.1;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: .98rem;
+    margin: 0 auto 1.5rem;
+    max-width: 480px;
+  }
+  .gold-rule {
+    width: 56px;
+    height: 2px;
+    background: var(--gold);
+    margin: 0 auto 1.5rem;
+  }
+  .progress-wrap { max-width: 420px; margin: 0 auto; }
+  .progress-text {
+    font-size: .82rem;
+    color: var(--muted);
+    margin-bottom: .45rem;
+    letter-spacing: .3px;
+  }
+  .progress-text strong { color: var(--ink); font-weight: 600; }
+  .progress-bar {
+    background: var(--line-2);
+    height: 5px;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    background: var(--gold);
+    height: 100%;
+    width: 0%;
+    transition: width .5s ease;
+  }
+
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  /* ===== Controls ===== */
+  .controls {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1.75rem;
+  }
+  .controls button {
+    background: #fff;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    padding: .55rem 1rem;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: .85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .15s;
+    letter-spacing: .2px;
+  }
+  .controls button:hover {
+    border-color: var(--ink);
+    background: #fafafa;
+  }
+  .controls button.primary {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
+  .controls button.primary:hover { background: #333; }
+  .controls button.ghost {
+    border-color: transparent;
+    color: var(--muted);
+  }
+  .controls button.ghost:hover { color: var(--ink); border-color: var(--line); }
+  .controls .spacer { flex: 1; }
+
+  /* ===== Week ===== */
+  .week {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: border-color .15s;
+  }
+  .week:hover { border-color: #d8d8d8; }
+  .week-header {
+    padding: 1.1rem 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    user-select: none;
+    transition: background .12s;
+  }
+  .week-header:hover { background: #fafafa; }
+  .week.open .week-header {
+    border-bottom: 1px solid var(--line);
+  }
+  .week-meta { flex: 1; min-width: 0; }
+  .week-number {
+    font-family: 'Inter', sans-serif;
+    font-size: .7rem;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--gold-deep);
+    font-weight: 600;
+    margin-bottom: .15rem;
+  }
+  .week-title {
+    font-family: 'Source Serif Pro', serif;
+    font-size: 1.35rem;
+    margin: 0;
+    color: var(--ink);
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -.2px;
+  }
+  .week-progress {
+    font-size: .82rem;
+    color: var(--muted);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  .chevron {
+    color: var(--faint);
+    transition: transform .2s, color .15s;
+    font-size: .85rem;
+  }
+  .week:hover .chevron { color: var(--ink); }
+  .week.open .chevron { transform: rotate(90deg); color: var(--gold-deep); }
+  .week-body { display: none; }
+  .week.open .week-body { display: block; }
+
+  /* ===== Day ===== */
+  .day {
+    padding: 1.5rem 1.4rem;
+    border-top: 1px solid var(--line-2);
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    gap: 1.1rem;
+    align-items: start;
+  }
+  .day:first-child { border-top: none; }
+  .day.complete { background: #fcfaf5; }
+  .day.today {
+    background: linear-gradient(180deg, #fdfaf2 0%, #fff 100%);
+    border-left: 3px solid var(--gold);
+    padding-left: calc(1.4rem - 3px);
+  }
+
+  .day-num {
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid var(--ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Source Serif Pro', serif;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: .9rem;
+    background: #fff;
+    font-variant-numeric: tabular-nums;
+    transition: all .15s;
+  }
+  .day.complete .day-num {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--ink);
+  }
+  .day.today .day-num {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--gold);
+  }
+
+  .day-content { min-width: 0; }
+  .day-ref {
+    font-family: 'Source Serif Pro', serif;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 1.08rem;
+    margin: 0 0 .15rem;
+    letter-spacing: -.1px;
+  }
+  .day-ref .day-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: .68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gold-deep);
+    margin-right: .55rem;
+    vertical-align: middle;
+  }
+  .day-focus {
+    color: var(--muted);
+    font-style: italic;
+    font-size: .96rem;
+    margin: 0 0 1rem;
+    font-family: 'Source Serif Pro', serif;
+  }
+
+  .day-section { margin-top: .9rem; }
+  .day-label {
+    font-family: 'Inter', sans-serif;
+    font-size: .7rem;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--ink);
+    font-weight: 600;
+    display: block;
+    margin-bottom: .4rem;
+  }
+  .day-section ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    list-style: none;
+  }
+  .day-section ul li {
+    margin-bottom: .35rem;
+    color: var(--ink-2);
+    position: relative;
+    line-height: 1.55;
+  }
+  .day-section ul li::before {
+    content: "";
+    position: absolute;
+    left: -1.1rem;
+    top: .65em;
+    width: 5px;
+    height: 5px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+  .day-section.pray p {
+    margin: 0;
+    color: var(--ink-2);
+    font-family: 'Source Serif Pro', serif;
+    font-style: italic;
+    line-height: 1.55;
+    padding-left: .9rem;
+    border-left: 2px solid var(--gold);
+  }
+
+  .check-btn {
+    background: #fff;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    padding: .45rem .85rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: .78rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all .15s;
+    letter-spacing: .2px;
+  }
+  .check-btn:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+  .day.complete .check-btn {
+    background: var(--ink);
+    color: var(--gold);
+    border-color: var(--ink);
+  }
+
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: .82rem;
+    padding: 2rem 1rem 3rem;
+    font-style: italic;
+    font-family: 'Source Serif Pro', serif;
+  }
+
+  @media (max-width: 600px) {
+    .day {
+      grid-template-columns: 32px 1fr;
+      gap: .85rem;
+      padding: 1.2rem 1rem;
+    }
+    .day.today { padding-left: calc(1rem - 3px); }
+    .day-num { width: 30px; height: 30px; font-size: .82rem; }
+    .check-btn { grid-column: 1 / -1; justify-self: end; margin-top: .25rem; }
+    .week-header { padding: 1rem 1.1rem; }
+    .week-title { font-size: 1.2rem; }
+    main { padding: 1.5rem .9rem 3rem; }
+    h1.title { font-size: 1.85rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <p class="eyebrow">Home Church</p>
+  <h1 class="title">The Life of David</h1>
+  <p class="subtitle">A 20-week devotional walk through 1 &amp; 2 Samuel, 1 Chronicles, and the Psalms.</p>
+  <div class="gold-rule"></div>
+  <div class="progress-wrap">
+    <div class="progress-text"><strong id="progress-count">0</strong> of 140 days complete</div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+</header>
+
+<main>
+  <div class="controls">
+    <button class="primary" id="jump-today">Go to today</button>
+    <button id="expand-all">Expand all</button>
+    <button id="collapse-all">Collapse all</button>
+    <div class="spacer"></div>
+    <button class="ghost" id="reset-progress">Reset progress</button>
+  </div>
+  <div id="weeks-container"></div>
+</main>
+
+<footer>
+  Walk slowly. Read prayerfully.
+</footer>
+
+<script>
+const PLAN = [
+  {
+    week: 1,
+    title: "The Need for a King",
+    days: [
+      { day: 1, ref: "1 Samuel 1", focus: "Hannah pours her heart out to God and doesn't dress it up.",
+        reflect: ["Where are you putting on a brave face that God is actually inviting you to drop?", "When was the last time you let yourself really cry in prayer?"],
+        pray: "God, I don't have to perform for you. Here's what's actually going on..." },
+      { day: 2, ref: "1 Samuel 2", focus: "Hannah sings. Eli's sons treat the holy stuff like a perk.",
+        reflect: ["Where has the holy stuff become routine for you?", "Has familiarity with church or the Bible dulled your wonder a little?"],
+        pray: "Father, wake me back up. I don't want to be numb to who you are." },
+      { day: 3, ref: "1 Samuel 3", focus: "God calls a kid in the dark. Samuel says, 'Speak, I'm listening.'",
+        reflect: ["Are you actually listening for God, or just rehearsing what you want to say to Him?", "What would change if you started your day with 'Speak, Lord — I'm listening'?"],
+        pray: "Speak, God. I'll stop talking long enough to actually hear you today." },
+      { day: 4, ref: "1 Samuel 4", focus: "Israel grabs the ark like a good luck charm. It backfires.",
+        reflect: ["Where are you using God instead of trusting Him?", "What's the thing you keep reaching for like it's going to fix you?"],
+        pray: "Jesus, I don't want to use you. I want to know you. Show me where I've turned you into a tool." },
+      { day: 5, ref: "1 Samuel 5–6", focus: "God doesn't need defending. He handles Himself among the Philistines.",
+        reflect: ["Where do you feel like you have to protect God or argue Him into respectability?", "What does it free up to remember God can take care of His own reputation?"],
+        pray: "God, you're not small. Forgive me for shrinking you. Show me your weight today." },
+      { day: 6, ref: "1 Samuel 7–8", focus: "Israel wants a king like everybody else has.",
+        reflect: ["Where in your life are you settling for what everyone else has instead of what God has for you?", "What 'kings' have you crowned that should've been God's seat?"],
+        pray: "King Jesus, expose the lesser kings I keep crowning. Take the throne — for real this time." },
+      { day: 7, ref: "1 Samuel 9–10", focus: "Saul gets anointed. Tall, handsome, looks like a king. Looks aren't the test.",
+        reflect: ["Where are you measuring people (or yourself) by the outside?", "What does God see in you that nobody else does?"],
+        pray: "God, I'm tired of being impressive. Make me actually faithful." }
+    ]
+  },
+  {
+    week: 2,
+    title: "Saul's Rise & Fall",
+    days: [
+      { day: 8, ref: "1 Samuel 11–12", focus: "Saul leads a rescue; Samuel calls Israel to remember.",
+        reflect: ["What victory in your life are you tempted to take credit for?", "How does remembering God's faithfulness reshape today's anxieties?"],
+        pray: "Lord, I rehearse Your past kindness so that I can trust You with what's still ahead." },
+      { day: 9, ref: "1 Samuel 13", focus: "Saul offers the sacrifice himself rather than wait.",
+        reflect: ["Where is impatience pushing you to take a shortcut around obedience?", "What does it cost to wait on God when pressure mounts?"],
+        pray: "Father, slow me down. Make me one who waits when waiting is what You ask." },
+      { day: 10, ref: "1 Samuel 14", focus: "Jonathan trusts; Saul's rash vow nearly kills his son.",
+        reflect: ["Compare Jonathan's faith with Saul's anxious leadership — what's the difference?", "Where is fear, not faith, driving your decisions right now?"],
+        pray: "God, I want bold, simple faith like Jonathan's — believing nothing can hinder You from saving." },
+      { day: 11, ref: "1 Samuel 15", focus: "Partial obedience is disobedience.",
+        reflect: ["Where have you been calling 'good enough' what God called incomplete?", "What does it look like to obey fully today, not just mostly?"],
+        pray: "Lord, search me for the things I've spared that You told me to surrender. I lay them down." },
+      { day: 12, ref: "1 Samuel 16", focus: "God sees the heart; David is anointed.",
+        reflect: ["How does it free you that 'the Lord looks on the heart'?", "What heart is God forming in you in the hidden field where no one is watching?"],
+        pray: "Lord, You see me. Form in me a heart after Your own — even if no one notices but You." },
+      { day: 13, ref: "1 Samuel 17", focus: "David and Goliath — God fights for His name.",
+        reflect: ["What 'giant' is mocking the people of God in your life right now?", "Whose battle is it really? What changes when you remember that?"],
+        pray: "The battle is Yours, Lord. Be glorified in what looks impossible to me today." },
+      { day: 14, ref: "Psalm 8 & 19", focus: "God's glory in the heavens and in His Word.",
+        reflect: ["Where can you see God's majesty in creation today?", "How does Scripture revive, rejoice, and warn you (Ps 19)?"],
+        pray: "Heavens declare; Word revives. Open my eyes to Your glory written everywhere." }
+    ]
+  },
+  {
+    week: 3,
+    title: "Favor & Jealousy",
+    days: [
+      { day: 15, ref: "1 Samuel 18", focus: "David's success stirs Saul's jealousy.",
+        reflect: ["Where does someone else's blessing tempt you toward jealousy?", "How do you respond when God seems to favor another?"],
+        pray: "Father, free me from comparison. Let me celebrate what You're doing in others." },
+      { day: 16, ref: "1 Samuel 19", focus: "Saul tries to kill David; Michal and Jonathan protect him.",
+        reflect: ["Have you been someone's Jonathan — protecting another person at cost to yourself?", "Where do you need God's protection right now?"],
+        pray: "Lord, be my shield. And use me as a refuge for someone running for their life." },
+      { day: 17, ref: "1 Samuel 20", focus: "Jonathan and David's covenant of friendship.",
+        reflect: ["What does this kind of loyal friendship look like in your life?", "Who needs you to choose them this week, not just feel for them?"],
+        pray: "Lord, give me one or two soul-friendships that strengthen me in You — and make me that for someone." },
+      { day: 18, ref: "Psalm 59", focus: "David prays under Saul's surveillance.",
+        reflect: ["What would you pray if your enemies were watching the door?", "How does naming threats before God lower their power?"],
+        pray: "O my Strength, I will sing of Your steadfast love when the night comes." },
+      { day: 19, ref: "Psalm 11", focus: "When the foundations are shaken, the Lord is in His holy temple.",
+        reflect: ["What 'foundations' feel shaken in your life right now?", "How does the Lord's unshaken throne change your fear?"],
+        pray: "Lord, You reign. I will not flee like a bird to the mountains — I take refuge in You." },
+      { day: 20, ref: "Psalm 34", focus: "Taste and see — the Lord delivers from all fears.",
+        reflect: ["What does it look like to 'magnify the Lord' today, even in trouble?", "Which fear do you need to bring to the One who hears?"],
+        pray: "I sought the Lord, and He answered me. He is near to the brokenhearted — including mine." },
+      { day: 21, ref: "Reflection & Prayer", focus: "Pause and pray over weeks 1–3.",
+        reflect: ["Where has God been forming you in the past three weeks?", "Where is jealousy, fear, or impatience still ruling? What needs to be confessed?"],
+        pray: "Lord, You are forming me. I yield. Carry forward what You've started in me." }
+    ]
+  },
+  {
+    week: 4,
+    title: "Into the Wilderness",
+    days: [
+      { day: 22, ref: "1 Samuel 21", focus: "David flees to Nob and to Achish.",
+        reflect: ["What does desperation tempt you to do that you wouldn't normally do?", "When God's calling has been delayed, where does your trust drift?"],
+        pray: "Father, in the in-between, keep me honest. Don't let fear write my next move." },
+      { day: 23, ref: "1 Samuel 22", focus: "The cave of Adullam; the priests of Nob slain.",
+        reflect: ["Who are the 'distressed, in debt, discontented' that God might be sending to you?", "What grief do you carry from collateral damage in others' choices?"],
+        pray: "Lord, let me be a cave of refuge for the weary. And carry the sorrow my decisions caused." },
+      { day: 24, ref: "1 Samuel 23", focus: "David inquires of the Lord — repeatedly.",
+        reflect: ["When was the last time you asked God before deciding?", "What does it mean to inquire of the Lord, not just inform Him?"],
+        pray: "Speak before I move. Lead before I act. I will inquire of You, Lord." },
+      { day: 25, ref: "1 Samuel 24", focus: "David spares Saul in the cave.",
+        reflect: ["Where do you have a chance to repay evil with restraint?", "How does trusting God's timing change how you treat people who've hurt you?"],
+        pray: "Lord, I refuse to take vengeance with my own hand. You are the just Judge." },
+      { day: 26, ref: "Psalm 52", focus: "The boastful man and the green olive tree.",
+        reflect: ["Where are you tempted to trust in 'abundance of riches' or strength of self?", "What does it look like to be a 'green olive tree in the house of God'?"],
+        pray: "I trust in the steadfast love of God forever. Root me in Your house, not in my résumé." },
+      { day: 27, ref: "Psalm 57", focus: "In the shadow of Your wings I will take refuge.",
+        reflect: ["What 'shadow of Your wings' feels real to you today?", "Can you sing — really sing — even before the deliverance comes?"],
+        pray: "Awake, my soul! I will sing to You among the nations, even in the cave." },
+      { day: 28, ref: "Psalm 142", focus: "I cry out — no one cares for my soul.",
+        reflect: ["When has loneliness driven you to God in a new way?", "What does it mean to 'pour out your complaint before Him'?"],
+        pray: "You know my way. You are my refuge, my portion in the land of the living." }
+    ]
+  },
+  {
+    week: 5,
+    title: "Formed in the Cave",
+    days: [
+      { day: 29, ref: "Psalm 7", focus: "Plea for vindication; God as righteous judge.",
+        reflect: ["Where do you need God to vindicate you instead of defending yourself?", "How does trust in God as judge free you from anxious self-defense?"],
+        pray: "O Lord my God, in You I take refuge. Save me, and let me leave the verdict to You." },
+      { day: 30, ref: "Psalm 27", focus: "The Lord is my light and my salvation — whom shall I fear?",
+        reflect: ["What 'one thing' have you asked of the Lord lately?", "Where is fear lying to you about who God is?"],
+        pray: "I will see the goodness of the Lord in the land of the living. Wait for the Lord — be strong." },
+      { day: 31, ref: "Psalm 31", focus: "Into Your hand I commit my spirit.",
+        reflect: ["What feels too heavy to hold today?", "How is God a 'rock of refuge' specifically for you in this season?"],
+        pray: "Into Your hand I commit my spirit. My times are in Your hands." },
+      { day: 32, ref: "Psalm 56", focus: "When I am afraid, I put my trust in You.",
+        reflect: ["What's beneath your fear right now — what do you really believe about God?", "Are your tears in God's bottle, or are they drying alone?"],
+        pray: "Lord, You keep count of my tossings. In God I trust; what can flesh do to me?" },
+      { day: 33, ref: "Psalm 140–141", focus: "Deliver me from evil; set a guard over my mouth.",
+        reflect: ["What words have escaped you this week that need confession?", "Where do you need God's protection from your own appetites?"],
+        pray: "Set a guard, O Lord, over my mouth — and over my heart, where the words begin." },
+      { day: 34, ref: "Psalm 120", focus: "Too long have I had my dwelling among those who hate peace.",
+        reflect: ["Where do you live among people who 'hate peace'? How does that wear on you?", "What does it mean to be 'for peace' when others are not?"],
+        pray: "Lord, when I'm surrounded by hostility, keep me a person of peace — anchored in You." },
+      { day: 35, ref: "Reflection", focus: "What is God forming in you in the cave?",
+        reflect: ["David's psalms in this season are remarkably honest. What does that invite from you?", "What kind of person is God making you when no one is watching?"],
+        pray: "Form me, Lord. Don't waste this hidden season. Make me Yours all the way through." }
+    ]
+  },
+  {
+    week: 6,
+    title: "Integrity Under Pressure",
+    days: [
+      { day: 36, ref: "1 Samuel 25", focus: "Nabal, Abigail, and David's near-vengeance.",
+        reflect: ["Where is your anger close to making a permanent decision?", "Has someone been an Abigail to you — interrupting your worst self?"],
+        pray: "Lord, send Abigails. And keep me from acting in heat what I'd regret in calm." },
+      { day: 37, ref: "1 Samuel 26", focus: "David spares Saul again.",
+        reflect: ["How is restraint a form of worship?", "Where is God testing what you do with power you didn't have to use?"],
+        pray: "Father, I will not stretch my hand against what You've called me to leave to You." },
+      { day: 38, ref: "1 Samuel 27", focus: "David lives among the Philistines — the gray seasons.",
+        reflect: ["What do you do in the long, in-between seasons that don't feel triumphant?", "Where might you be drifting because the wait is long?"],
+        pray: "Lord, even in the gray, hold me. Don't let me settle for less than what You've promised." },
+      { day: 39, ref: "Psalm 17", focus: "Hide me in the shadow of Your wings.",
+        reflect: ["What would change if your prayer was, 'Try me, You will find nothing'?", "Where do you most need to be hidden in God right now?"],
+        pray: "Keep me as the apple of Your eye; hide me in the shadow of Your wings." },
+      { day: 40, ref: "Psalm 35", focus: "Contend, O Lord, with those who contend with me.",
+        reflect: ["What does it look like to bring conflict to God before to people?", "How do you honor God when people repay your good with evil?"],
+        pray: "Lord, You are my advocate. I lay down my own defense and trust You." },
+      { day: 41, ref: "Psalm 54", focus: "Behold, God is my helper.",
+        reflect: ["When have you been 'sold out' or betrayed? What did you learn about God there?", "What does it mean today that God is your upholder?"],
+        pray: "Behold, God is my helper; the Lord is the upholder of my life." },
+      { day: 42, ref: "Psalm 63", focus: "My soul thirsts for You.",
+        reflect: ["Where in your life are you most thirsty?", "What would it look like to meditate on God 'in the watches of the night'?"],
+        pray: "O God, You are my God; earnestly I seek You. My soul thirsts for You." }
+    ]
+  },
+  {
+    week: 7,
+    title: "The End of Saul",
+    days: [
+      { day: 43, ref: "1 Samuel 28", focus: "Saul consults a medium at Endor.",
+        reflect: ["When God seems silent, where are you tempted to look for answers in the wrong places?", "What's the cost of seeking guidance outside of God?"],
+        pray: "Father, when I can't hear You, teach me to wait — not to manufacture an answer." },
+      { day: 44, ref: "1 Samuel 29", focus: "God protects David from a battle he shouldn't fight.",
+        reflect: ["Where might God be 'closing a door' that feels like rejection but is actually rescue?", "Can you trust His no?"],
+        pray: "Lord, I trust Your no as much as Your yes. You know what I cannot see." },
+      { day: 45, ref: "1 Samuel 30", focus: "David encourages himself in the Lord.",
+        reflect: ["When everyone is against you, what does it look like to 'strengthen yourself in the Lord your God'?", "What does that practice involve practically?"],
+        pray: "Strengthen me in You, Lord, when I have no other strength to draw from." },
+      { day: 46, ref: "1 Samuel 31", focus: "Saul falls in battle.",
+        reflect: ["What's the slow tragedy of a life lived apart from God's heart?", "Where is God inviting you off the slow trajectory toward Saul's end?"],
+        pray: "Father, let my end be different from Saul's. Keep me Yours to the last breath." },
+      { day: 47, ref: "Psalm 18", focus: "I love You, O Lord, my strength — David's song of deliverance.",
+        reflect: ["Where has God 'reached down from on high' for you?", "What does it look like to love God as your strength today?"],
+        pray: "I love You, O Lord, my strength. My rock, my fortress, my deliverer." },
+      { day: 48, ref: "Psalm 121", focus: "My help comes from the Lord.",
+        reflect: ["Where do you 'lift up your eyes' first when help is needed?", "What does God's keeping look like in your life right now?"],
+        pray: "The Lord will keep my going out and my coming in, from this time forth and forevermore." },
+      { day: 49, ref: "Psalm 124–125", focus: "If the Lord had not been on our side…",
+        reflect: ["Look back: where do you see God's hand in deliverances you didn't realize at the time?", "What does it mean that those who trust the Lord are 'like Mount Zion'?"],
+        pray: "Our help is in the name of the Lord, who made heaven and earth. Anchor me as Mount Zion." }
+    ]
+  },
+  {
+    week: 8,
+    title: "From Fugitive to King",
+    days: [
+      { day: 50, ref: "2 Samuel 1", focus: "David grieves Saul and Jonathan.",
+        reflect: ["What does it say about David that he mourned the man who hunted him?", "Who is hard for you to grieve well? Why?"],
+        pray: "Lord, give me a heart big enough to grieve even those who wounded me." },
+      { day: 51, ref: "2 Samuel 2", focus: "David is anointed king over Judah.",
+        reflect: ["David has waited years for this moment — what does patience produce in a leader?", "Where are you tempted to grasp what God has already promised?"],
+        pray: "I will wait until You give it. And I will steward what You give." },
+      { day: 52, ref: "2 Samuel 3", focus: "Civil war; Abner's death.",
+        reflect: ["Where do you carry the weight of others' violence done in your name?", "How do you respond when the cost of leadership is high?"],
+        pray: "Father, I bring You the burdens of leadership I didn't choose. Carry what I can't." },
+      { day: 53, ref: "2 Samuel 4", focus: "Ish-bosheth murdered; David refuses to celebrate.",
+        reflect: ["Where could you be tempted to celebrate something gained by ungodly means?", "What does it cost to refuse the easier path?"],
+        pray: "Lord, I will not gain at the cost of righteousness. Even when it would be easier." },
+      { day: 54, ref: "2 Samuel 5", focus: "David becomes king over all Israel.",
+        reflect: ["What does it mean that David 'became greater and greater, for the Lord was with him'?", "Where do you most need to remember that God's presence is your real strength?"],
+        pray: "Lord, may I 'become greater' only because You are with me. Otherwise, make me less." },
+      { day: 55, ref: "1 Chronicles 11", focus: "David's mighty men — strength gathered around the king.",
+        reflect: ["Who are your 'mighty men' — the few committed to your fight?", "What do you owe the people who've stood with you?"],
+        pray: "Father, give me a few. And make me one for someone else." },
+      { day: 56, ref: "Psalm 133", focus: "How good and pleasant when brothers dwell in unity.",
+        reflect: ["Where is unity costing you something right now?", "What 'oil running down' have you experienced when believers are truly one?"],
+        pray: "Lord, command Your blessing on unity. Make us one as You are one." }
+    ]
+  },
+  {
+    week: 9,
+    title: "Worship & Presence",
+    days: [
+      { day: 57, ref: "1 Chronicles 13", focus: "The ark, Uzzah, and the fear of the Lord.",
+        reflect: ["Where have you handled holy things casually?", "What does it look like to fear the Lord without running from Him?"],
+        pray: "Holy God, restore in me the fear of the Lord — reverence that draws near, not flees." },
+      { day: 58, ref: "1 Chronicles 14", focus: "David inquires of the Lord before each battle.",
+        reflect: ["What pattern could you build to inquire of the Lord more regularly?", "What's the difference between asking God and announcing your plan to Him?"],
+        pray: "Lord, I will ask before I act — twice if need be. Speak; I'm listening." },
+      { day: 59, ref: "1 Chronicles 15", focus: "Bringing the ark the right way — God's way.",
+        reflect: ["Where have your good intentions taken precedence over God's instructions?", "What does it cost to do the right thing the right way?"],
+        pray: "Father, I want to honor You on Your terms, not mine. Teach me." },
+      { day: 60, ref: "1 Chronicles 16", focus: "David's psalm of thanksgiving.",
+        reflect: ["What 'wondrous works' of God do you most need to remember today?", "How does declaring God's glory among the nations shape your perspective?"],
+        pray: "Give thanks to the Lord, call upon His name; make known His deeds among the peoples!" },
+      { day: 61, ref: "Psalm 24", focus: "Who shall ascend the hill of the Lord?",
+        reflect: ["What kind of heart does God invite into His presence?", "Where do you need to lift up the gates of your heart for the King of glory?"],
+        pray: "Lift up your heads, O gates! Let the King of glory come in." },
+      { day: 62, ref: "Psalm 47", focus: "God reigns over the nations.",
+        reflect: ["How does worship reorient you when news of the world is heavy?", "What does it look like to 'clap your hands' even in hard times?"],
+        pray: "God reigns over the nations; God sits on His holy throne. I worship the King." },
+      { day: 63, ref: "Psalm 68", focus: "Sing to God, sing praises to His name.",
+        reflect: ["Which name of God in this psalm meets your need today?", "Where have you seen God 'a father to the fatherless'?"],
+        pray: "Father to the fatherless, defender of widows — God in His holy habitation, I praise You." }
+    ]
+  },
+  {
+    week: 10,
+    title: "The Covenant",
+    days: [
+      { day: 64, ref: "2 Samuel 6", focus: "David dances before the Lord; Michal despises him.",
+        reflect: ["Where does dignity get in the way of worship?", "What does undignified worship look like in your life?"],
+        pray: "Lord, I'd rather be undignified before You than impressive before others." },
+      { day: 65, ref: "2 Samuel 7", focus: "David wants to build God a house — God promises to build David's.",
+        reflect: ["Where have your plans for God been gently set aside for His bigger plan?", "What does it mean that God's covenant rests on God's faithfulness, not yours?"],
+        pray: "You have spoken of Your servant's house for a great while to come. Bless according to Your word." },
+      { day: 66, ref: "1 Chronicles 17", focus: "The Davidic covenant — pointing to Christ.",
+        reflect: ["How does this promise find its 'yes' in Jesus?", "What changes when you see your story inside God's bigger story?"],
+        pray: "Jesus, Son of David, true and forever King — reign in me." },
+      { day: 67, ref: "Psalm 2", focus: "The Lord laughs at the rage of the nations; He has set His King on Zion.",
+        reflect: ["How do you respond when the world rages?", "What does it mean to 'kiss the Son' today?"],
+        pray: "Blessed are all who take refuge in Him. I kiss the Son and rest in His reign." },
+      { day: 68, ref: "Psalm 89", focus: "I will sing of the steadfast love of the Lord forever.",
+        reflect: ["When God's promises seem delayed, what does this psalm teach you to do?", "Where do you need to remember that God's covenant doesn't depend on your performance?"],
+        pray: "Lord, I cling to Your steadfast love when my circumstances tell another story." },
+      { day: 69, ref: "Psalm 132", focus: "Remember David and his afflictions — God's faithful response.",
+        reflect: ["What 'afflictions' are you asking God to remember?", "How does God's faithfulness to His promises strengthen your weary places?"],
+        pray: "Lord, remember Your servant. You who keep covenant — I trust You with my unfinished story." },
+      { day: 70, ref: "Reflection", focus: "Pause and pray over weeks 8–10.",
+        reflect: ["Where has God been faithful to His promises in your life?", "What is God building that He hasn't shown you the blueprint for yet?"],
+        pray: "Lord, You are the Builder. I yield my plans and trust Your design." }
+    ]
+  },
+  {
+    week: 11,
+    title: "Expansion & Favor",
+    days: [
+      { day: 71, ref: "2 Samuel 8", focus: "The Lord gives David victory wherever he goes.",
+        reflect: ["When is favor dangerous? What temptations come with success?", "How can you receive favor without forgetting the Giver?"],
+        pray: "Lord, Yours is the victory. Keep my hands open in success and my heart small before You." },
+      { day: 72, ref: "2 Samuel 9", focus: "David's kindness to Mephibosheth.",
+        reflect: ["Who in your life is a 'Mephibosheth' — overlooked, forgotten, and in need of seat at the table?", "How does God's kindness to you fuel kindness to others?"],
+        pray: "Father, You set me at Your table by grace. Let me set someone else at mine." },
+      { day: 73, ref: "1 Chronicles 18", focus: "David reigns with justice and equity.",
+        reflect: ["Where can you steward power, voice, or influence with justice today?", "What does 'justice and equity' look like in your spheres?"],
+        pray: "Make me a person of justice and mercy — like the King I serve." },
+      { day: 74, ref: "Psalm 20", focus: "May the Lord answer you in the day of trouble.",
+        reflect: ["Whose 'day of trouble' can you pray over today?", "Where do you trust 'in chariots' or strength rather than the name of the Lord?"],
+        pray: "Some trust in chariots; we trust in the name of the Lord our God." },
+      { day: 75, ref: "Psalm 21", focus: "The king rejoices in the Lord's strength.",
+        reflect: ["Where has God answered you with 'rich blessings' you didn't even ask for?", "How does this psalm point you to King Jesus?"],
+        pray: "Be exalted, O Lord, in Your strength. We will sing and praise Your power." },
+      { day: 76, ref: "Psalm 65–66", focus: "All the earth shouts for joy.",
+        reflect: ["Where can you see God's 'awesome deeds' in creation and history today?", "What testimony of God's faithfulness do you need to share with someone?"],
+        pray: "Come and see what God has done. Bless our God, you peoples!" },
+      { day: 77, ref: "Psalm 67", focus: "May Your way be known on earth.",
+        reflect: ["How does asking for God's blessing connect to making His name known?", "Who is the 'all the nations' you can pray for this week?"],
+        pray: "May God be gracious to us and bless us, that Your way may be known on earth." }
+    ]
+  },
+  {
+    week: 12,
+    title: "Strength & Warning Signs",
+    days: [
+      { day: 78, ref: "2 Samuel 10", focus: "Ammonites shame David's envoys; Israel goes to war.",
+        reflect: ["Where do you respond to being shamed — with restraint or escalation?", "How does God's reputation factor into your reactions?"],
+        pray: "Lord, when I am insulted or misrepresented, keep me steady in You." },
+      { day: 79, ref: "1 Chronicles 19", focus: "Joab's resolve: 'Be strong; the Lord do what seems good to Him.'",
+        reflect: ["What does it look like to be strong AND surrendered at the same time?", "Where do you need this prayer right now?"],
+        pray: "Be strong; let us play the man for our people. May the Lord do what seems good to Him." },
+      { day: 80, ref: "Psalm 69", focus: "Waters rise to my neck — and I am consumed by zeal for Your house.",
+        reflect: ["How do this psalm's lines about reproach point to Christ on the cross?", "Where do you feel as if 'waters have come up to your neck'?"],
+        pray: "Lord, draw near to my soul. Save me, for the waters have come up to my neck." },
+      { day: 81, ref: "Psalm 70", focus: "Hasten, O God — a short, urgent cry.",
+        reflect: ["What needs an urgent prayer today, no preamble?", "Where do you delay calling out because it feels too small?"],
+        pray: "Hasten to me, O God! You are my help and my deliverer; O Lord, do not delay!" },
+      { day: 82, ref: "Psalm 50", focus: "God speaks; thanksgiving is true sacrifice.",
+        reflect: ["What kind of worship does God actually want from you?", "Where might God be exposing a gap between your words and your life?"],
+        pray: "I will offer the sacrifice of thanksgiving. Let my life back up my praise." },
+      { day: 83, ref: "Psalm 53", focus: "The fool says in his heart, 'There is no God.'",
+        reflect: ["Where does practical atheism creep into your decisions, even with God-language on your lips?", "What changes when you live as if God really sees?"],
+        pray: "God, I confess where I've lived as a practical fool. Be present, real, and sovereign in my today." },
+      { day: 84, ref: "Reflection", focus: "Strength can become a warning sign.",
+        reflect: ["Where in your life is success creating quiet danger?", "What guardrails has God been gently nudging you to put in place?"],
+        pray: "Father, let my strength be Your strength, not my own. Show me where I'm vulnerable." }
+    ]
+  },
+  {
+    week: 13,
+    title: "The Fall",
+    days: [
+      { day: 85, ref: "2 Samuel 11", focus: "David, Bathsheba, Uriah — the cascade of sin.",
+        reflect: ["Trace the small steps that lead to the big sin. Where do you see them?", "Where are you 'on the roof' instead of in the battle today?"],
+        pray: "Father, I bring You the small choices — the looks, the lingerings — before they grow." },
+      { day: 86, ref: "2 Samuel 12", focus: "Nathan confronts; David repents.",
+        reflect: ["Who is a 'Nathan' you've allowed into your life — someone who can say, 'You are the man'?", "How does David's response model true repentance?"],
+        pray: "Lord, give me Nathans, and a heart soft enough to hear them as Your voice." },
+      { day: 87, ref: "Psalm 51", focus: "Have mercy on me, O God.",
+        reflect: ["What needs to be confessed today — really named, not glossed over?", "What does 'a broken and contrite heart' look like in your life?"],
+        pray: "Create in me a clean heart, O God, and renew a right spirit within me." },
+      { day: 88, ref: "Psalm 32", focus: "The blessedness of forgiveness; instruction in the way.",
+        reflect: ["What does it cost to keep silent about sin?", "How is God your hiding place even now?"],
+        pray: "Blessed is the one whose transgression is forgiven. You are my hiding place, O Lord." },
+      { day: 89, ref: "Psalm 86", focus: "You, O Lord, are good and forgiving.",
+        reflect: ["Where do you need to remember that God is 'abounding in steadfast love' for you?", "What does it mean to ask for an 'undivided heart'?"],
+        pray: "Unite my heart to fear Your name. You, O Lord, are good and forgiving." },
+      { day: 90, ref: "Psalm 122", focus: "I was glad when they said, 'Let us go to the house of the Lord.'",
+        reflect: ["After failure, what brings you back to the house of the Lord?", "Where might God be calling you to be glad to return?"],
+        pray: "Lord, restore the joy of going to Your house. Make me glad to be among Your people again." },
+      { day: 91, ref: "Reflection", focus: "Pause and pray over the fall and the mercy.",
+        reflect: ["Where is grace inviting you to come back, no matter what?", "What is the difference between worldly sorrow and godly repentance?"],
+        pray: "Lord, You meet failure with mercy. I receive Your kindness that leads me to repentance." }
+    ]
+  },
+  {
+    week: 14,
+    title: "Consequences Begin",
+    days: [
+      { day: 92, ref: "2 Samuel 13", focus: "Amnon, Tamar, and Absalom — sin's bitter fruit in the family.",
+        reflect: ["What generational patterns is God exposing for healing?", "Where does silence in the face of evil need to break?"],
+        pray: "Lord, where there is unspoken pain in my family, bring Your light and Your healing." },
+      { day: 93, ref: "2 Samuel 14", focus: "Absalom returns but is not restored.",
+        reflect: ["What's the difference between proximity and reconciliation?", "Where have you accepted partial peace where God offers full restoration?"],
+        pray: "Father, I want full reconciliation, not just polite distance. Lead me there." },
+      { day: 94, ref: "2 Samuel 15", focus: "Absalom steals the people's hearts; David flees.",
+        reflect: ["When others betray you, where does humility look like David's exit?", "How does God meet you when you're walking a humbling road?"],
+        pray: "Lord, when I must walk a humbling path, let me walk it with You." },
+      { day: 95, ref: "Psalm 3", focus: "Many are rising up against me — but You, O Lord, are a shield.",
+        reflect: ["What threats wake you in the night? Where can you 'lie down and sleep' anyway?", "How is God your glory and the lifter of your head?"],
+        pray: "I lay me down and sleep; I wake again, for the Lord sustains me." },
+      { day: 96, ref: "Psalm 4", focus: "In peace I will both lie down and sleep.",
+        reflect: ["Where are you 'angry but not sinning'? What does that look like?", "What 'good' do you need from God right now?"],
+        pray: "You have put more joy in my heart than they have when their grain and wine abound." },
+      { day: 97, ref: "Psalm 12–13", focus: "How long, O Lord? Will You forget me forever?",
+        reflect: ["What 'how long' prayer is on your lips today?", "How do you trust in steadfast love when it feels delayed?"],
+        pray: "I have trusted in Your steadfast love; my heart shall rejoice in Your salvation." },
+      { day: 98, ref: "Psalm 55", focus: "If a friend had taunted me — but it is you.",
+        reflect: ["How do you carry betrayal by someone close?", "What does it look like to 'cast your burden on the Lord'?"],
+        pray: "Cast your burden on the Lord, and He will sustain you. He will never permit the righteous to be moved." }
+    ]
+  },
+  {
+    week: 15,
+    title: "Absalom's Rebellion",
+    days: [
+      { day: 99, ref: "2 Samuel 16", focus: "Shimei curses; Ziba deceives.",
+        reflect: ["When you're already down, how do you respond to people who pile on?", "What does it look like to leave your reputation with God?"],
+        pray: "Lord, when I'm cursed, I will not curse back. You see; You judge; You vindicate." },
+      { day: 100, ref: "2 Samuel 17", focus: "Hushai's counsel; God thwarts Absalom.",
+        reflect: ["Where is God working behind the scenes you cannot see?", "How does this passage encourage you about God's quiet sovereignty?"],
+        pray: "Lord, even in chaos, You are weaving. I trust the threads I cannot see." },
+      { day: 101, ref: "2 Samuel 18", focus: "Absalom's death; David's grief.",
+        reflect: ["What sorrow do you carry for someone you love who walked their own way?", "What does it mean that David grieved a son who tried to kill him?"],
+        pray: "Father, I bring You the loved ones whose path is breaking my heart. You love them more than I do." },
+      { day: 102, ref: "Psalm 61", focus: "Lead me to the rock that is higher than I.",
+        reflect: ["When you are at 'the end of the earth,' what rock do you climb to?", "What does it look like to dwell in God's tent forever?"],
+        pray: "From the end of the earth I call to You when my heart is faint. Lead me to the rock that is higher than I." },
+      { day: 103, ref: "Psalm 62", focus: "For God alone my soul waits in silence.",
+        reflect: ["Where are you tempted to find salvation in something other than God?", "What does waiting in silence actually look like for you?"],
+        pray: "For God alone, O my soul, wait in silence; my hope is from Him." },
+      { day: 104, ref: "Psalm 64", focus: "Hide me from the secret plots of the wicked.",
+        reflect: ["What unseen attacks weigh on you? Bring them honestly to God.", "How does God shoot back the arrow that was shot at you?"],
+        pray: "Hide me, O Lord. You see what I cannot, and Your justice is not on a delay I can measure." },
+      { day: 105, ref: "Reflection", focus: "Pause and pray over weeks 13–15.",
+        reflect: ["Where has consequence taught you something grace alone could not?", "What is God restoring after the fall?"],
+        pray: "Lord, You don't waste anything — not even consequences. Use this season for Your purposes in me." }
+    ]
+  },
+  {
+    week: 16,
+    title: "Restoration & Tension",
+    days: [
+      { day: 106, ref: "2 Samuel 19", focus: "David returns; old wounds are mishandled.",
+        reflect: ["How do you handle people who hurt you when you suddenly hold the power again?", "Where might restoration require both grace and wisdom from you?"],
+        pray: "Lord, give me grace to forgive and wisdom to lead well after wounding." },
+      { day: 107, ref: "2 Samuel 20", focus: "Sheba's revolt; the wise woman of Abel.",
+        reflect: ["Who are the wise voices God has placed near you to prevent disaster?", "Where can you be a wise voice for someone else?"],
+        pray: "Lord, raise up wise voices around me. And use my voice for peace." },
+      { day: 108, ref: "2 Samuel 21", focus: "The famine and a long-buried injustice.",
+        reflect: ["What old wrong might God be surfacing to be addressed?", "How does justice and mercy work together in this story?"],
+        pray: "Lord, where there is unaddressed wrong, give courage to face it Your way." },
+      { day: 109, ref: "Psalm 5", focus: "Give ear to my words, O Lord.",
+        reflect: ["What does it look like to 'prepare a sacrifice' before the Lord in the morning?", "How does morning prayer set the tone of your day?"],
+        pray: "In the morning, O Lord, You hear my voice. I prepare a sacrifice and watch." },
+      { day: 110, ref: "Psalm 38", focus: "Do not forsake me, O Lord — a confession of frailty.",
+        reflect: ["Where is sin or sorrow weighing physically on you?", "What does it mean to wait for God when you are weary in body and soul?"],
+        pray: "Make haste to help me, O Lord, my salvation. I wait for You — only You." },
+      { day: 111, ref: "Psalm 41–42", focus: "As the deer pants — and the discouraged soul.",
+        reflect: ["Where does your soul feel parched? What 'streams' have you been drinking from instead?", "What does it look like to 'speak to your soul' as the psalmist does?"],
+        pray: "Why are you cast down, O my soul? Hope in God; I shall again praise Him." },
+      { day: 112, ref: "Reflection", focus: "Restoration is rarely tidy.",
+        reflect: ["Where are you tempted to want restoration without tension?", "What is God producing in you in the messy middle?"],
+        pray: "Lord, I want clean endings. You're writing something deeper. Carry me." }
+    ]
+  },
+  {
+    week: 17,
+    title: "Final Words",
+    days: [
+      { day: 113, ref: "2 Samuel 22", focus: "David's song — the Lord is my rock.",
+        reflect: ["At the end of his life, David rehearses God's faithfulness. What's your testimony so far?", "Which line in this song meets you most today?"],
+        pray: "The Lord is my rock and my fortress and my deliverer — my God, my rock, in whom I take refuge." },
+      { day: 114, ref: "2 Samuel 23", focus: "David's last words; the mighty men named.",
+        reflect: ["What 'last words' would you want to leave behind?", "Who in your life deserves to be 'named' for their faithfulness?"],
+        pray: "Lord, let my last words be Your words. And let me honor those who've stood in the gap." },
+      { day: 115, ref: "Psalm 57", focus: "My heart is steadfast, O God — second time through this psalm.",
+        reflect: ["What truth has become more your own since you read this psalm before?", "Where is your heart 'steadfast' now in a way it wasn't?"],
+        pray: "My heart is steadfast, O God, my heart is steadfast! I will sing and make melody." },
+      { day: 116, ref: "Psalm 95", focus: "Come, let us worship and bow down.",
+        reflect: ["Where might today be the day to 'not harden your heart'?", "What does kneeling before the Maker actually look like in your day?"],
+        pray: "Come, let us bow down. You are our God, and we are the people of Your pasture." },
+      { day: 117, ref: "Psalm 97–98", focus: "The Lord reigns; sing a new song.",
+        reflect: ["What 'new song' is God writing in your life?", "How does God's reign over the whole earth shape your worship today?"],
+        pray: "Sing to the Lord a new song, for He has done marvelous things." },
+      { day: 118, ref: "Psalm 99", focus: "The Lord reigns — He is holy.",
+        reflect: ["What does the holiness of God evoke in you — fear, awe, distance, nearness?", "How does God's holiness invite worship rather than only fear?"],
+        pray: "Exalt the Lord our God; worship at His holy mountain — for the Lord our God is holy." },
+      { day: 119, ref: "Reflection", focus: "What 'last words' is God writing through your life?",
+        reflect: ["What is becoming more central to you as the years go on?", "Where do you want to land at the end of your life?"],
+        pray: "Lord, write Your last words through my whole life. Let everything point to You." }
+    ]
+  },
+  {
+    week: 18,
+    title: "Final Test",
+    days: [
+      { day: 120, ref: "2 Samuel 24", focus: "David numbers the people — pride and consequence.",
+        reflect: ["Where does measuring strength quietly replace trusting God?", "What does it look like that David said, 'Let us fall into the hand of the Lord'?"],
+        pray: "Lord, I'd rather fall into Your hand than trust in numbers. You are merciful." },
+      { day: 121, ref: "1 Chronicles 21", focus: "David buys the threshing floor at full price.",
+        reflect: ["What does it cost to offer to God what actually costs you?", "Where have you been offering 'free' worship that doesn't really cost anything?"],
+        pray: "I will not offer to the Lord what costs me nothing. Take what is mine that is really Yours." },
+      { day: 122, ref: "1 Chronicles 22", focus: "David prepares for the temple Solomon will build.",
+        reflect: ["What are you preparing for the next generation that you may not see finished?", "How does faithfulness across generations shape your priorities?"],
+        pray: "Lord, let me build for what comes after me, even what I won't live to see." },
+      { day: 123, ref: "Psalm 30", focus: "Weeping may tarry for the night, but joy comes with the morning.",
+        reflect: ["What 'mourning' is God turning into 'dancing' in your life?", "Where do you need to remember His anger is for a moment, His favor for a lifetime?"],
+        pray: "You have turned for me my mourning into dancing. I will give thanks to You forever." },
+      { day: 124, ref: "Psalm 108–109", focus: "Steadfast love is great above the heavens; cry against false accusers.",
+        reflect: ["When falsely accused, what do you do with the words against you?", "How does worship become a form of warfare?"],
+        pray: "My heart is steadfast, O God! With my song I will lift up Your name above the heavens." },
+      { day: 125, ref: "Psalm 110", focus: "The Lord said to my Lord — a messianic vision.",
+        reflect: ["How does this psalm point to King Jesus?", "What does it mean that Jesus is both King and Priest?"],
+        pray: "Jesus, my King and Priest, I bow before Your reign and rest in Your intercession." },
+      { day: 126, ref: "Reflection", focus: "Even at the end, the heart is being tested.",
+        reflect: ["Where is God still refining what you assumed was settled?", "What is the difference between learning a lesson once and walking it out for life?"],
+        pray: "Lord, search me even now. Refine me until the end. Keep me Yours." }
+    ]
+  },
+  {
+    week: 19,
+    title: "Preparing the Legacy",
+    days: [
+      { day: 127, ref: "1 Chronicles 23", focus: "David organizes the Levites for worship.",
+        reflect: ["How are you arranging your life to make worship a sustainable rhythm?", "What does ordered, intentional worship produce in a community?"],
+        pray: "Lord, help me build rhythms of worship that outlast my moods." },
+      { day: 128, ref: "1 Chronicles 24", focus: "Priestly divisions and assignments.",
+        reflect: ["What does it look like to take seriously the role God has given you, however small?", "Where might you be despising 'small' service?"],
+        pray: "Lord, whatever portion You've given me — I will steward it faithfully." },
+      { day: 129, ref: "1 Chronicles 25", focus: "Musicians and singers set apart for ministry.",
+        reflect: ["What gifts has God given you that should be 'set apart' for His purposes?", "How does the ministry of music in your life shape your soul?"],
+        pray: "Lord, take my gifts. Set them apart. Tune my heart to Your praise." },
+      { day: 130, ref: "Psalm 131", focus: "I have calmed and quieted my soul.",
+        reflect: ["Where do you need to stop occupying yourself with things 'too great' for you?", "What would it look like to be a 'weaned child' in God's lap today?"],
+        pray: "Lord, I calm and quiet my soul. Like a weaned child with its mother — that is my soul before You." },
+      { day: 131, ref: "Psalm 138–139", focus: "You have searched me and known me.",
+        reflect: ["What does it mean for you that God is fully and tenderly present in every moment?", "Where do you most need 'search me, O God, and know my heart' to be your prayer?"],
+        pray: "Search me, O God, and know my heart; lead me in the way everlasting." },
+      { day: 132, ref: "Psalm 143–144", focus: "Teach me to do Your will — for You are my God.",
+        reflect: ["What does it mean to ask God to teach you to do His will, not just know it?", "Where does the Spirit need to lead you on level ground?"],
+        pray: "Teach me to do Your will, for You are my God. Let Your good Spirit lead me on level ground." },
+      { day: 133, ref: "Psalm 145", focus: "Great is the Lord, and greatly to be praised.",
+        reflect: ["Walk through this psalm and name what you most want to praise God for today.", "How does daily praise reshape the storyline of your life?"],
+        pray: "Every day I will bless You and praise Your name forever and ever." }
+    ]
+  },
+  {
+    week: 20,
+    title: "Passing the Baton",
+    days: [
+      { day: 134, ref: "1 Chronicles 26–27", focus: "Gatekeepers, treasurers, leaders — every role matters.",
+        reflect: ["Where can you celebrate the unseen roles in the body of Christ?", "What 'gate' has God put you near to keep faithful watch over?"],
+        pray: "Lord, let me be faithful at the gate You've assigned me — known to You is enough." },
+      { day: 135, ref: "1 Chronicles 28", focus: "David charges Solomon: know God; serve with a whole heart.",
+        reflect: ["What charge would you want to give the next generation?", "Where do you need to 'know God' more, not just know about Him?"],
+        pray: "Lord, may I know You — and may those who follow me know You because of how I lived." },
+      { day: 136, ref: "1 Chronicles 29", focus: "David's prayer of generosity and praise.",
+        reflect: ["Where does your generosity fall short of what God has given you?", "What does it mean that 'all things come from You, and of Your own have we given You'?"],
+        pray: "Yours, O Lord, is the greatness, the power, the glory. All comes from You; we give back what is already Yours." },
+      { day: 137, ref: "1 Kings 1", focus: "Solomon anointed king as David's life closes.",
+        reflect: ["What does it look like to release control well at the end of a long obedience?", "Where are you holding tightly to something it's time to entrust to others?"],
+        pray: "Lord, teach me to hold lightly what You've called me to release." },
+      { day: 138, ref: "1 Kings 2", focus: "David's final charge to Solomon.",
+        reflect: ["Strength and obedience are paired — why do you think that is?", "What might God's last 'charge' to you be in this season?"],
+        pray: "Be strong, show yourself a man, and keep the charge of the Lord your God." },
+      { day: 139, ref: "Psalm 37 & 71", focus: "Trust in the Lord, and do good. Even to old age and gray hairs.",
+        reflect: ["What does it mean to 'fret not' and 'trust in the Lord'?", "How can you walk faithfully into the next decade of life?"],
+        pray: "Even to old age and gray hairs, O God, do not forsake me — until I proclaim Your might to another generation." },
+      { day: 140, ref: "Psalm 94", focus: "When my anxious thoughts multiply, Your consolations delight my soul.",
+        reflect: ["Looking back over 140 days, where has God been your consolation?", "What is the next step of obedience God is asking of you?"],
+        pray: "Lord, You have been my refuge. I commit the next chapter to You. Walk with me on." }
+    ]
+  }
+];
+
+// ============ App ============
+const STORAGE_KEY = "lifeOfDavid.progress.v3";
+
+function load() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch(e) { return {}; } }
+function save(p) { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); } catch(e) {} }
+let progress = load();
+
+const totalDays = () => PLAN.reduce((s, w) => s + w.days.length, 0);
+const completedCount = () => Object.values(progress).filter(Boolean).length;
+
+function todayDayNumber() {
+  const total = totalDays();
+  let n = 1;
+  while (n <= total && progress[n]) n++;
+  return Math.min(n, total);
+}
+
+function updateProgressBar() {
+  const done = completedCount();
+  document.getElementById("progress-count").textContent = done;
+  document.getElementById("progress-fill").style.width = (done / totalDays() * 100) + "%";
+}
+
+function weekProgressText(w) {
+  const done = w.days.filter(d => progress[d.day]).length;
+  return done + " / " + w.days.length;
+}
+
+function render() {
+  const container = document.getElementById("weeks-container");
+  container.innerHTML = "";
+  const today = todayDayNumber();
+  const todayWeek = PLAN.find(w => w.days.some(d => d.day === today));
+
+  PLAN.forEach(w => {
+    const weekEl = document.createElement("section");
+    weekEl.className = "week";
+    weekEl.dataset.week = w.week;
+
+    const header = document.createElement("div");
+    header.className = "week-header";
+    header.innerHTML = `
+      <div class="week-meta">
+        <div class="week-number">Week ${w.week}</div>
+        <h2 class="week-title">${w.title}</h2>
+      </div>
+      <span class="week-progress">${weekProgressText(w)}</span>
+      <span class="chevron">&#9656;</span>
+    `;
+    header.addEventListener("click", () => weekEl.classList.toggle("open"));
+    weekEl.appendChild(header);
+
+    const body = document.createElement("div");
+    body.className = "week-body";
+    w.days.forEach(d => {
+      const isComplete = !!progress[d.day];
+      const isToday = d.day === today;
+      const dayEl = document.createElement("div");
+      dayEl.className = "day" + (isComplete ? " complete" : "") + (isToday ? " today" : "");
+      dayEl.id = "day-" + d.day;
+      dayEl.innerHTML = `
+        <div class="day-num">${d.day}</div>
+        <div class="day-content">
+          <div class="day-ref"><span class="day-tag">${isToday ? "Today" : "Day " + d.day}</span>${d.ref}</div>
+          <p class="day-focus">${d.focus}</p>
+          <div class="day-section">
+            <span class="day-label">Reflect</span>
+            <ul>${d.reflect.map(r => `<li>${r}</li>`).join("")}</ul>
+          </div>
+          <div class="day-section pray">
+            <span class="day-label">Pray</span>
+            <p>${d.pray}</p>
+          </div>
+        </div>
+        <button class="check-btn" data-check="${d.day}">${isComplete ? "✓ Done" : "Mark done"}</button>
+      `;
+      body.appendChild(dayEl);
+    });
+    weekEl.appendChild(body);
+    if (todayWeek && w.week === todayWeek.week) weekEl.classList.add("open");
+    container.appendChild(weekEl);
+  });
+
+  container.querySelectorAll("[data-check]").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.stopPropagation();
+      const day = parseInt(btn.dataset.check, 10);
+      progress[day] = !progress[day];
+      if (!progress[day]) delete progress[day];
+      save(progress);
+      render();
+    });
+  });
+
+  updateProgressBar();
+}
+
+document.getElementById("jump-today").addEventListener("click", () => {
+  const today = todayDayNumber();
+  const tw = PLAN.find(w => w.days.some(d => d.day === today));
+  if (tw) {
+    document.querySelectorAll(".week").forEach(el => {
+      if (parseInt(el.dataset.week, 10) === tw.week) el.classList.add("open");
+    });
+  }
+  setTimeout(() => {
+    const el = document.getElementById("day-" + today);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, 50);
+});
+document.getElementById("expand-all").addEventListener("click", () => {
+  document.querySelectorAll(".week").forEach(el => el.classList.add("open"));
+});
+document.getElementById("collapse-all").addEventListener("click", () => {
+  document.querySelectorAll(".week").forEach(el => el.classList.remove("open"));
+});
+document.getElementById("reset-progress").addEventListener("click", () => {
+  if (confirm("Reset all your progress?")) {
+    progress = {};
+    save(progress);
+    render();
+  }
+});
+
+render();
+</script>
+</body>
+</html>
