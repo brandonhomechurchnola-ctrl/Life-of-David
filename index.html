@@ -16,7 +16,7 @@
     --faint: #9a9a9a;
     --line: #e8e8e8;
     --line-2: #f1f1f1;
-    --gold: #D3BC8D;        /* Saints Old Gold */
+    --gold: #D3BC8D;
     --gold-deep: #b39966;
     --gold-soft: #f5efe1;
   }
@@ -31,8 +31,6 @@
     font-size: 16px;
   }
   .serif { font-family: 'Source Serif Pro', Georgia, serif; }
-
-  /* ===== Header ===== */
   header.site {
     text-align: center;
     padding: 3rem 1.25rem 2rem;
@@ -88,14 +86,11 @@
     width: 0%;
     transition: width .5s ease;
   }
-
   main {
     max-width: 760px;
     margin: 0 auto;
     padding: 2rem 1.25rem 4rem;
   }
-
-  /* ===== Controls ===== */
   .controls {
     display: flex;
     gap: .5rem;
@@ -132,8 +127,6 @@
   }
   .controls button.ghost:hover { color: var(--ink); border-color: var(--line); }
   .controls .spacer { flex: 1; }
-
-  /* ===== Week ===== */
   .week {
     background: #fff;
     border: 1px solid var(--line);
@@ -190,8 +183,6 @@
   .week.open .chevron { transform: rotate(90deg); color: var(--gold-deep); }
   .week-body { display: none; }
   .week.open .week-body { display: block; }
-
-  /* ===== Day ===== */
   .day {
     padding: 1.5rem 1.4rem;
     border-top: 1px solid var(--line-2);
@@ -207,7 +198,6 @@
     border-left: 3px solid var(--gold);
     padding-left: calc(1.4rem - 3px);
   }
-
   .day-num {
     width: 36px;
     height: 36px;
@@ -234,7 +224,6 @@
     border-color: var(--ink);
     color: var(--gold);
   }
-
   .day-content { min-width: 0; }
   .day-ref {
     font-family: 'Source Serif Pro', serif;
@@ -261,7 +250,6 @@
     margin: 0 0 1rem;
     font-family: 'Source Serif Pro', serif;
   }
-
   .day-section { margin-top: .9rem; }
   .day-label {
     font-family: 'Inter', sans-serif;
@@ -303,7 +291,6 @@
     padding-left: .9rem;
     border-left: 2px solid var(--gold);
   }
-
   .check-btn {
     background: #fff;
     color: var(--muted);
@@ -327,7 +314,6 @@
     color: var(--gold);
     border-color: var(--ink);
   }
-
   footer {
     text-align: center;
     color: var(--muted);
@@ -336,7 +322,6 @@
     font-style: italic;
     font-family: 'Source Serif Pro', serif;
   }
-
   @media (max-width: 600px) {
     .day {
       grid-template-columns: 32px 1fr;
@@ -381,65 +366,8 @@
   Walk slowly. Read prayerfully.
 </footer>
 
+<script src="plan-data.js"></script>
 <script>
-const PLAN = [
-  {
-    week: 1,
-    title: "The Need for a King",
-    days: [
-      { day: 1, ref: "1 Samuel 1", focus: "Hannah pours her heart out to God and doesn't dress it up.",
-        reflect: ["Where are you putting on a brave face that God is actually inviting you to drop?", "When was the last time you let yourself really cry in prayer?"],
-        pray: "God, I don't have to perform for you. Here's what's actually going on..." },
-      { day: 2, ref: "1 Samuel 2", focus: "Hannah sings. Eli's sons treat the holy stuff like a perk.",
-        reflect: ["Where has the holy stuff become routine for you?", "Has familiarity with church or the Bible dulled your wonder a little?"],
-        pray: "Father, wake me back up. I don't want to be numb to who you are." },
-      { day: 3, ref: "1 Samuel 3", focus: "God calls a kid in the dark. Samuel says, 'Speak, I'm listening.'",
-        reflect: ["Are you actually listening for God, or just rehearsing what you want to say to Him?", "What would change if you started your day with 'Speak, Lord — I'm listening'?"],
-        pray: "Speak, God. I'll stop talking long enough to actually hear you today." },
-      { day: 4, ref: "1 Samuel 4", focus: "Israel grabs the ark like a good luck charm. It backfires.",
-        reflect: ["Where are you using God instead of trusting Him?", "What's the thing you keep reaching for like it's going to fix you?"],
-        pray: "Jesus, I don't want to use you. I want to know you. Show me where I've turned you into a tool." },
-      { day: 5, ref: "1 Samuel 5–6", focus: "God doesn't need defending. He handles Himself among the Philistines.",
-        reflect: ["Where do you feel like you have to protect God or argue Him into respectability?", "What does it free up to remember God can take care of His own reputation?"],
-        pray: "God, you're not small. Forgive me for shrinking you. Show me your weight today." },
-      { day: 6, ref: "1 Samuel 7–8", focus: "Israel wants a king like everybody else has.",
-        reflect: ["Where in your life are you settling for what everyone else has instead of what God has for you?", "What 'kings' have you crowned that should've been God's seat?"],
-        pray: "King Jesus, expose the lesser kings I keep crowning. Take the throne — for real this time." },
-      { day: 7, ref: "1 Samuel 9–10", focus: "Saul gets anointed. Tall, handsome, looks like a king. Looks aren't the test.",
-        reflect: ["Where are you measuring people (or yourself) by the outside?", "What does God see in you that nobody else does?"],
-        pray: "God, I'm tired of being impressive. Make me actually faithful." }
-    ]
-  },
-  {
-    week: 2,
-    title: "Saul's Rise & Fall",
-    days: [
-      { day: 8, ref: "1 Samuel 11–12", focus: "Saul leads a rescue; Samuel calls Israel to remember.",
-        reflect: ["What victory in your life are you tempted to take credit for?", "How does remembering God's faithfulness reshape today's anxieties?"],
-        pray: "Lord, I rehearse Your past kindness so that I can trust You with what's still ahead." },
-      { day: 9, ref: "1 Samuel 13", focus: "Saul offers the sacrifice himself rather than wait.",
-        reflect: ["Where is impatience pushing you to take a shortcut around obedience?", "What does it cost to wait on God when pressure mounts?"],
-        pray: "Father, slow me down. Make me one who waits when waiting is what You ask." },
-      { day: 10, ref: "1 Samuel 14", focus: "Jonathan trusts; Saul's rash vow nearly kills his son.",
-        reflect: ["Compare Jonathan's faith with Saul's anxious leadership — what's the difference?", "Where is fear, not faith, driving your decisions right now?"],
-        pray: "God, I want bold, simple faith like Jonathan's — believing nothing can hinder You from saving." },
-      { day: 11, ref: "1 Samuel 15", focus: "Partial obedience is disobedience.",
-        reflect: ["Where have you been calling 'good enough' what God called incomplete?", "What does it look like to obey fully today, not just mostly?"],
-        pray: "Lord, search me for the things I've spared that You told me to surrender. I lay them down." },
-      { day: 12, ref: "1 Samuel 16", focus: "God sees the heart; David is anointed.",
-        reflect: ["How does it free you that 'the Lord looks on the heart'?", "What heart is God forming in you in the hidden field where no one is watching?"],
-        pray: "Lord, You see me. Form in me a heart after Your own — even if no one notices but You." },
-      { day: 13, ref: "1 Samuel 17", focus: "David and Goliath — God fights for His name.",
-        reflect: ["What 'giant' is mocking the people of God in your life right now?", "Whose battle is it really? What changes when you remember that?"],
-        pray: "The battle is Yours, Lord. Be glorified in what looks impossible to me today." },
-      { day: 14, ref: "Psalm 8 & 19", focus: "God's glory in the heavens and in His Word.",
-        reflect: ["Where can you see God's majesty in creation today?", "How does Scripture revive, rejoice, and warn you (Ps 19)?"],
-        pray: "Heavens declare; Word revives. Open my eyes to Your glory written everywhere." }
-    ]
-  }
-];
-
-// ============ App ============
 const STORAGE_KEY = "lifeOfDavid.progress.v3";
 
 function load() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch(e) { return {}; } }
@@ -555,6 +483,5 @@ document.getElementById("reset-progress").addEventListener("click", () => {
 
 render();
 </script>
-
 </body>
 </html>
